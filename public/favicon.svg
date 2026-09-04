@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" fill="none">
+  <!-- Cercle fond -->
+  <circle cx="16" cy="16" r="16" fill="#6B8E6B"/>
+  <!-- Pousse -->
+  <path d="M16 24V16" stroke="#FDFBF7" stroke-width="2" stroke-linecap="round"/>
+  <path d="M16 16C16 13.5 14 11.8 11.5 11.8C11.7 14 13.8 15.3 16 16Z" fill="#FDFBF7"/>
+  <path d="M16 14C16 11.8 18 10.3 20 10.3C19.8 12.2 18 13.3 16 14Z" fill="#FDFBF7"/>
+</svg>

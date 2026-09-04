@@ -1,0 +1,241 @@
+@import url("https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Karla:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap");
+
+@import "tailwindcss";
+
+/* ============================================================
+   SÈVE — Design System
+   « La tech prend racine »
+   Tokens : couleurs, typographie, ombres, animations
+   ============================================================ */
+
+@theme {
+  /* ---------- Palette principale ---------- */
+
+  /* Blanc cassé — fond */
+  --color-cream-50: #ffffff;
+  --color-cream-100: #fdfbf7;
+  --color-cream-200: #f8f2e8;
+  --color-cream-300: #f0e7d6;
+  --color-cream-400: #e4d5ba;
+
+  /* Vert profond — texte */
+  --color-forest-50: #f2f5f2;
+  --color-forest-100: #e3eae3;
+  --color-forest-200: #c6d3c6;
+  --color-forest-300: #a3b6a4;
+  --color-forest-400: #7d967f;
+  --color-forest-500: #5e7a61;
+  --color-forest-600: #49604c;
+  --color-forest-700: #3c4e3f;
+  --color-forest-800: #334135;
+  --color-forest-900: #2b3a2b;
+  --color-forest-950: #18201a;
+
+  /* Jaune moutarde — accent */
+  --color-mustard-50: #faf6e8;
+  --color-mustard-100: #f4ebc9;
+  --color-mustard-200: #e9d993;
+  --color-mustard-300: #ddc364;
+  --color-mustard-400: #cfb349;
+  --color-mustard-500: #c2a53d;
+  --color-mustard-600: #a98931;
+  --color-mustard-700: #8a6d2b;
+  --color-mustard-800: #715729;
+  --color-mustard-900: #5f4926;
+  --color-mustard-950: #372718;
+
+  /* Terracotta — accent */
+  --color-terracotta-50: #fcf2ee;
+  --color-terracotta-100: #f8e2d8;
+  --color-terracotta-200: #f0c3b0;
+  --color-terracotta-300: #e79f82;
+  --color-terracotta-400: #df835f;
+  --color-terracotta-500: #d96c4a;
+  --color-terracotta-600: #c6532f;
+  --color-terracotta-700: #a44226;
+  --color-terracotta-800: #833824;
+  --color-terracotta-900: #6b3223;
+  --color-terracotta-950: #3a180f;
+
+  /* Vert sauge — accent / fond contact */
+  --color-sage-50: #f1f5f1;
+  --color-sage-100: #e0e9e0;
+  --color-sage-200: #c2d4c2;
+  --color-sage-300: #a0bba2;
+  --color-sage-400: #83a385;
+  --color-sage-500: #6b8e6b;
+  --color-sage-600: #577657;
+  --color-sage-700: #465f47;
+  --color-sage-800: #3a4e3b;
+  --color-sage-900: #314033;
+  --color-sage-950: #1b241c;
+
+  /* Hiver — teinte froide dérivée (4ᵉ saison de la timeline) */
+  --color-winter-50: #f2f5f4;
+  --color-winter-100: #e0e8e7;
+  --color-winter-200: #c3d1d0;
+  --color-winter-300: #a0b5b4;
+  --color-winter-400: #7e9897;
+  --color-winter-500: #678180;
+  --color-winter-600: #4f6a69;
+  --color-winter-700: #435857;
+  --color-winter-800: #39494a;
+  --color-winter-900: #323f40;
+  --color-winter-950: #1e2627;
+
+  /* ---------- Typographie ---------- */
+
+  /* Titres : ronde et généreuse */
+  --font-display: "Baloo 2", "Nunito", ui-rounded, system-ui, sans-serif;
+
+  /* Corps de texte : lisible et organique */
+  --font-sans: "Karla", ui-sans-serif, system-ui, -apple-system, sans-serif;
+
+  /* ---------- Ombres portées douces ---------- */
+
+  --shadow-organic-sm:
+    0 2px 8px -2px rgb(43 58 43 / 0.08),
+    0 1px 3px rgb(43 58 43 / 0.05);
+  --shadow-organic:
+    0 8px 24px -8px rgb(43 58 43 / 0.14),
+    0 3px 8px -3px rgb(43 58 43 / 0.07);
+  --shadow-organic-lg:
+    0 20px 48px -16px rgb(43 58 43 / 0.2),
+    0 8px 20px -8px rgb(43 58 43 / 0.1);
+  --shadow-organic-glow:
+    0 8px 24px -8px rgb(194 165 61 / 0.45),
+    0 3px 8px -3px rgb(194 165 61 / 0.3);
+
+  /* ---------- Animations organiques ---------- */
+
+  --animate-float: float 6s ease-in-out infinite;
+  --animate-float-slow: float 9s ease-in-out infinite;
+  --animate-sway: sway 7s ease-in-out infinite;
+  --animate-grow: grow 0.9s cubic-bezier(0.22, 1, 0.36, 1) both;
+  --animate-drift: drift 16s linear infinite;
+  --animate-pulse-soft: pulse-soft 3.2s ease-in-out infinite;
+  --animate-rise: rise 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
+
+  @keyframes float {
+    0%,
+    100% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(-12px);
+    }
+  }
+
+  @keyframes sway {
+    0%,
+    100% {
+      transform: rotate(-3deg);
+    }
+    50% {
+      transform: rotate(4deg);
+    }
+  }
+
+  @keyframes grow {
+    from {
+      transform: scale(0.4) translateY(24px);
+      opacity: 0;
+    }
+    to {
+      transform: scale(1) translateY(0);
+      opacity: 1;
+    }
+  }
+
+  @keyframes drift {
+    0% {
+      transform: translate(0, 0) rotate(0deg);
+      opacity: 0;
+    }
+    10% {
+      opacity: 0.9;
+    }
+    90% {
+      opacity: 0.7;
+    }
+    100% {
+      transform: translate(60px, -140px) rotate(90deg);
+      opacity: 0;
+    }
+  }
+
+  @keyframes pulse-soft {
+    0%,
+    100% {
+      transform: scale(1);
+      opacity: 1;
+    }
+    50% {
+      transform: scale(1.06);
+      opacity: 0.85;
+    }
+  }
+
+  @keyframes rise {
+    from {
+      transform: translateY(28px);
+      opacity: 0;
+    }
+    to {
+      transform: translateY(0);
+      opacity: 1;
+    }
+  }
+}
+
+/* ---------- Styles de base ---------- */
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-cream-100 font-sans text-forest-900 antialiased;
+  }
+
+  ::selection {
+    @apply bg-mustard-200 text-forest-950;
+  }
+
+  /* Scrollbar discrète et arrondie */
+  ::-webkit-scrollbar {
+    width: 10px;
+  }
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  ::-webkit-scrollbar-thumb {
+    @apply rounded-full bg-forest-200;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    @apply bg-forest-300;
+  }
+}
+
+/* ---------- Utilitaires maison ---------- */
+
+@utility text-gradient-organic {
+  background-image: linear-gradient(
+    92deg,
+    var(--color-terracotta-500),
+    var(--color-mustard-500) 55%,
+    var(--color-sage-600)
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+@utility paper-dots {
+  background-image: radial-gradient(
+    rgb(43 58 43 / 0.08) 1.5px,
+    transparent 1.5px
+  );
+  background-size: 22px 22px;
+}
