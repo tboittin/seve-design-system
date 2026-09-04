@@ -73,24 +73,26 @@ function NavPill({
   isActive: boolean
 }) {
   return (
-    <li>
+    <li className="relative">
       <a
         href={`#${id}`}
-        className={`group flex items-center gap-3 rounded-full py-1.5 pl-1.5 pr-1.5 transition-all duration-300 ${
+        aria-label={label}
+        className={`group relative grid size-11 place-items-center rounded-full transition-all duration-300 ${
           isActive
             ? 'bg-forest-900 text-cream-50 shadow-sm'
             : 'text-forest-500 hover:bg-forest-50/80 hover:text-forest-800'
         }`}
         aria-current={isActive ? 'true' : undefined}
       >
-        <span className="grid size-10 place-items-center">
-          <Icon className="size-5" />
-        </span>
+        <Icon className="size-5" />
+
+        {/* Libellé flottant — visible pour la section active, au survol sinon */}
         <span
-          className={`overflow-hidden whitespace-nowrap text-sm font-bold transition-all duration-300 ${
+          aria-hidden="true"
+          className={`pointer-events-none absolute left-full top-1/2 ml-3 -translate-y-1/2 whitespace-nowrap rounded-full bg-forest-900 px-3 py-1.5 font-display text-xs font-bold text-cream-50 shadow-organic-sm transition-all duration-300 ${
             isActive
-              ? 'max-w-40 pr-3 opacity-100'
-              : 'max-w-0 opacity-0 group-hover:max-w-40 group-hover:opacity-100 group-hover:pr-3'
+              ? 'translate-x-0 opacity-100'
+              : 'translate-x-1 opacity-0 group-hover:translate-x-0 group-hover:opacity-100'
           }`}
         >
           {label}
