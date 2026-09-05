@@ -107,14 +107,21 @@
     0 3px 8px -3px rgb(194 165 61 / 0.3);
 
   /* ---------- Animations organiques ---------- */
+  /* React Spring (@react-spring/web) gère les animations d'entrée et les
+     interactions (hooks src/hooks/useSlideIn, useStaggeredSlideIn,
+     useOscillate, useSpringBar) ; les keyframes CSS ci-dessous servent aux
+     ambiances décoratives continues. */
 
   --animate-float: float 6s ease-in-out infinite;
   --animate-float-slow: float 9s ease-in-out infinite;
   --animate-sway: sway 7s ease-in-out infinite;
+  --animate-sway-rotate: sway-rotate 5s ease-in-out infinite;
   --animate-grow: grow 0.9s cubic-bezier(0.22, 1, 0.36, 1) both;
   --animate-drift: drift 16s linear infinite;
   --animate-pulse-soft: pulse-soft 3.2s ease-in-out infinite;
   --animate-rise: rise 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
+  --animate-shimmer: shimmer 3s ease-in-out infinite;
+  --animate-spin-slow: spin-slow 20s linear infinite;
 
   @keyframes float {
     0%,
@@ -184,6 +191,38 @@
     to {
       transform: translateY(0);
       opacity: 1;
+    }
+  }
+
+  @keyframes sway-rotate {
+    0%,
+    100% {
+      transform: rotate(0deg);
+    }
+    25% {
+      transform: rotate(3deg) translateX(2px);
+    }
+    75% {
+      transform: rotate(-3deg) translateX(-2px);
+    }
+  }
+
+  @keyframes shimmer {
+    0%,
+    100% {
+      opacity: 0.6;
+    }
+    50% {
+      opacity: 1;
+    }
+  }
+
+  @keyframes spin-slow {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(360deg);
     }
   }
 }
