@@ -1,4 +1,6 @@
+import { animated } from '@react-spring/web'
 import { SproutIcon, GithubIcon, ArrowRightIcon } from '../lib/icons'
+import { useOscillate } from '../hooks'
 
 const FOOTER_LINKS = [
   { href: '#accueil', label: 'Accueil' },
@@ -9,6 +11,9 @@ const FOOTER_LINKS = [
 ]
 
 export function Footer() {
+  /* La pousse du logo oscille doucement (React Spring) */
+  const sproutSpring = useOscillate({ range: 3, axis: 'rotate', mass: 0.5 })
+
   return (
     <footer className="border-t border-forest-100 pb-28 pt-10 lg:pb-10">
       <div className="mx-auto max-w-6xl px-6">
@@ -16,7 +21,9 @@ export function Footer() {
           {/* Logo + tagline */}
           <div className="flex flex-col items-center gap-1 sm:items-start">
             <span className="inline-flex items-center gap-2 font-display text-xl font-extrabold text-forest-900">
-              <SproutIcon className="size-6 text-sage-500" />
+              <animated.span style={sproutSpring} className="inline-flex">
+                <SproutIcon className="size-6 text-sage-500" />
+              </animated.span>
               Sève
             </span>
             <p className="text-xs text-forest-400">

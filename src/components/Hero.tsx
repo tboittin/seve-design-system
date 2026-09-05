@@ -1,7 +1,25 @@
+import { animated } from '@react-spring/web'
 import { ArrowRightIcon, SproutIcon } from '../lib/icons'
 import { LinkButton } from './ui/Button'
+import { useSlideIn, useStaggeredSlideIn, useOscillate } from '../hooks'
+
+/* ============================================================================
+   Hero Sève — « La tech prend racine ».
+   Entrée staggered : eyebrow → titre → chapô → CTA → dispo.
+   L'illustration glisse ; la pousse terminale oscille (React Spring),
+   les ambiances (soleil, goutte, graines) restent en keyframes CSS.
+   ========================================================================== */
 
 export function Hero() {
+  /* Blocs de texte en cascade (5 temps) */
+  const [textRef, textSprings] = useStaggeredSlideIn<HTMLDivElement>(5, {
+    y: 24,
+    stagger: 90,
+    config: { mass: 1, tension: 220, friction: 28 },
+  })
+  /* Illustration : glisse depuis la droite */
+  const [illusRef, illusSpring] = useSlideIn<HTMLDivElement>({ y: 32 })
+
   return (
     <section
       id="accueil"
@@ -19,24 +37,33 @@ export function Hero() {
 
       <div className="relative mx-auto flex max-w-6xl flex-col items-center gap-16 px-6 lg:flex-row lg:items-center">
         {/* Texte */}
-        <div className="flex-1 text-center lg:text-left">
-          <p className="mb-4 inline-flex items-center gap-2 text-xs font-bold uppercase tracking-[0.2em] text-sage-600">
+        <div ref={textRef} className="flex-1 text-center lg:text-left">
+          <animated.p
+            style={textSprings[0]}
+            className="mb-4 inline-flex items-center gap-2 text-xs font-bold uppercase tracking-[0.2em] text-sage-600"
+          >
             <span className="inline-block size-2 rounded-full bg-sage-500" />
             Développeur web · Ingénieur agronome
-          </p>
+          </animated.p>
 
-          <h1 className="font-display text-5xl font-extrabold leading-[1.05] tracking-tight text-forest-900 sm:text-6xl lg:text-7xl">
+          <animated.h1
+            style={textSprings[1]}
+            className="font-display text-5xl font-extrabold leading-[1.05] tracking-tight text-forest-900 sm:text-6xl lg:text-7xl"
+          >
             La tech prend{' '}
             <span className="text-gradient-organic">racine</span>
-          </h1>
+          </animated.h1>
 
-          <p className="mx-auto mt-6 max-w-xl text-lg leading-relaxed text-forest-500 lg:mx-0">
+          <animated.p
+            style={textSprings[2]}
+            className="mx-auto mt-6 max-w-xl text-lg leading-relaxed text-forest-500 lg:mx-0"
+          >
             Développeur web, ingénieur agronome. Je crée des outils numériques
             qui poussent — du champ de maïs au champ de code.
-          </p>
+          </animated.p>
 
           {/* CTA */}
-          <div className="mt-10 flex flex-wrap items-center gap-4">
+          <animated.div style={textSprings[3]} className="mt-10 flex flex-wrap items-center gap-4">
             <LinkButton
               href="#projets"
               iconRight={<ArrowRightIcon />}
@@ -48,22 +75,25 @@ export function Hero() {
             <LinkButton href="#contact" variant="outline" size="lg">
               Me contacter
             </LinkButton>
-          </div>
+          </animated.div>
 
           {/* Disponibilité */}
-          <p className="mt-8 inline-flex items-center gap-2 text-sm font-semibold text-forest-500">
+          <animated.p
+            style={textSprings[4]}
+            className="mt-8 inline-flex items-center gap-2 text-sm font-semibold text-forest-500"
+          >
             <span className="relative flex size-3">
               <span className="absolute inline-flex size-full animate-ping rounded-full bg-sage-400 opacity-75" />
               <span className="relative inline-flex size-3 rounded-full bg-sage-500" />
             </span>
             Disponible pour de nouvelles pousses
-          </p>
+          </animated.p>
         </div>
 
         {/* Illustration */}
-        <div className="flex-1">
+        <animated.div ref={illusRef} style={illusSpring} className="flex-1">
           <HeroIllustration />
-        </div>
+        </animated.div>
       </div>
     </section>
   )
@@ -74,6 +104,9 @@ export function Hero() {
 /* ------------------------------------------------------------------ */
 
 function HeroIllustration() {
+  /* Pousse terminale : balancement organique */
+  const tipSpring = useOscillate({ range: 4, axis: 'rotate', mass: 0.6 })
+
   return (
     <div className="relative">
       {/* Conteneur de l'illustration */}
@@ -202,15 +235,19 @@ function HeroIllustration() {
             opacity="0.3"
           />
 
-          {/* Pousse terminale — deux mini-feuilles */}
-          <path
-            d="M200 148 C188 138, 176 126, 175 114 C190 120, 198 132, 200 148Z"
-            fill="#C2A53D"
-          />
-          <path
-            d="M200 148 C212 140, 226 128, 228 116 C210 122, 202 134, 200 148Z"
-            fill="#a98931"
-          />
+          {/* Pousse terminale — deux mini-feuilles (oscillation React Spring) */}
+          <animated.g
+            style={{ ...tipSpring, transformBox: 'fill-box', transformOrigin: '50% 100%' }}
+          >
+            <path
+              d="M200 148 C188 138, 176 126, 175 114 C190 120, 198 132, 200 148Z"
+              fill="#C2A53D"
+            />
+            <path
+              d="M200 148 C212 140, 226 128, 228 116 C210 122, 202 134, 200 148Z"
+              fill="#a98931"
+            />
+          </animated.g>
 
           {/* Goutte flottante */}
           <g className="animate-float" style={{ transformBox: 'fill-box', transformOrigin: 'center' }}>

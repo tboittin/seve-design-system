@@ -1,7 +1,21 @@
+import { animated } from '@react-spring/web'
 import { seasons } from '../data/content'
 import { SectionHeader } from './ui/SectionHeader'
+import { useStaggeredSlideIn } from '../hooks'
+
+/* ============================================================================
+   Timeline — « Quatre saisons, une même sève ».
+   Chaque saison entre en cascade quand elle apparaît au scroll, alternée
+   gauche / droite sur desktop.
+   ========================================================================== */
 
 export function Timeline() {
+  const [listRef, seasonSprings] = useStaggeredSlideIn<HTMLOListElement>(seasons.length, {
+    y: 28,
+    stagger: 120,
+    config: { mass: 1, tension: 220, friction: 28 },
+  })
+
   return (
     <section
       id="parcours"
@@ -26,7 +40,7 @@ export function Timeline() {
           />
 
           {/* Éléments */}
-          <ol className="space-y-14 lg:space-y-24">
+          <ol ref={listRef} className="space-y-14 lg:space-y-24">
             {seasons.map((season, index) => {
               const isLeft = index % 2 === 0
               const sideClasses = isLeft
@@ -35,7 +49,11 @@ export function Timeline() {
               const s = season
 
               return (
-                <li key={s.id} className="relative grid lg:grid-cols-2">
+                <animated.li
+                  key={s.id}
+                  style={seasonSprings[index]}
+                  className="relative grid lg:grid-cols-2"
+                >
                   {/* Point sur la ligne */}
                   <span
                     className={`absolute left-6 top-2 z-10 size-5 -translate-x-1/2 rounded-full border-[4px] border-cream-100 shadow-organic-sm max-lg:hidden lg:left-1/2`}
@@ -109,7 +127,7 @@ export function Timeline() {
                       )}
                     </div>
                   </div>
-                </li>
+                </animated.li>
               )
             })}
           </ol>

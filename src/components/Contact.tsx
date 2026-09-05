@@ -1,13 +1,30 @@
+import { animated } from '@react-spring/web'
 import { useState } from 'react'
 import { MailIcon, MapPinIcon, ClockIcon, SendIcon, SproutIcon } from '../lib/icons'
 import { Button } from './ui/Button'
 import { SectionHeader } from './ui/SectionHeader'
+import { useSlideIn, useStaggeredSlideIn } from '../hooks'
+
+/* ============================================================================
+   Contact — « Semons ensemble ».
+   La carte sauge glisse vers le haut à l'entrée ; les coordonnées entrent
+   en cascade ; l'écran de confirmation « germe » (scale + fondu).
+   ========================================================================== */
 
 export function Contact() {
   const [name, setName] = useState('')
   const [email, setEmail] = useState('')
   const [message, setMessage] = useState('')
   const [sent, setSent] = useState(false)
+
+  /* Carte : slide-in */
+  const [cardRef, cardSpring] = useSlideIn<HTMLDivElement>({ y: 32, config: { mass: 1, tension: 200, friction: 28 } })
+  /* Coordonnées : cascade discrète */
+  const [infosRef, infosSprings] = useStaggeredSlideIn<HTMLUListElement>(3, {
+    y: 14,
+    stagger: 90,
+    config: { mass: 1, tension: 240, friction: 28 },
+  })
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
@@ -32,7 +49,11 @@ export function Contact() {
         />
 
         {/* Carte contact — fond vert sauge */}
-        <div className="relative overflow-hidden rounded-[36px] bg-sage-600 p-8 text-cream-50 shadow-organic-lg sm:p-14">
+        <animated.div
+          ref={cardRef}
+          style={cardSpring}
+          className="relative overflow-hidden rounded-[36px] bg-sage-600 p-8 text-cream-50 shadow-organic-lg sm:p-14"
+        >
           {/* Blobs décoratifs */}
           <div className="pointer-events-none absolute -top-12 -right-12 size-52 rounded-full bg-white/5 blur-2xl" aria-hidden="true" />
           <div className="pointer-events-none absolute -bottom-10 -left-10 size-40 rounded-full bg-white/5 blur-2xl" aria-hidden="true" />
@@ -56,28 +77,29 @@ export function Contact() {
                 je suis preneur. Réponse sous 48h, promis.
               </p>
 
-              <ul className="mt-8 space-y-4">
-                <li className="flex items-center gap-3 text-sm font-medium text-cream-50">
-                  <span className="grid size-9 place-items-center rounded-full bg-white/10 text-sage-200 backdrop-blur-sm">
-                    <MailIcon className="size-4" />
-                  </span>
-                  hello@seve.dev
-                </li>
-                <li className="flex items-center gap-3 text-sm font-medium text-cream-50">
-                  <span className="grid size-9 place-items-center rounded-full bg-white/10 text-sage-200 backdrop-blur-sm">
-                    <MapPinIcon className="size-4" />
-                  </span>
-                  Nantes, entre Loire et vignes
-                </li>
-                <li className="flex items-center gap-3 text-sm font-medium text-cream-50">
-                  <span className="grid size-9 place-items-center rounded-full bg-white/10 text-sage-200 backdrop-blur-sm">
-                    <ClockIcon className="size-4" />
-                  </span>
-                  Réponse sous 48h{' '}
-                  <span role="img" aria-label="pousse">
-                    🌱
-                  </span>
-                </li>
+              <ul ref={infosRef} className="mt-8 space-y-4">
+                {[
+                  { icon: <MailIcon className="size-4" />, text: 'hello@seve.dev' },
+                  { icon: <MapPinIcon className="size-4" />, text: 'Nantes, entre Loire et vignes' },
+                  {
+                    icon: <ClockIcon className="size-4" />,
+                    text: (
+                      <>
+                        Réponse sous 48h{' '}
+                        <span role="img" aria-label="pousse">
+                          🌱
+                        </span>
+                      </>
+                    ),
+                  },
+                ].map((item, i) => (
+                  <animated.li key={i} style={infosSprings[i]} className="flex items-center gap-3 text-sm font-medium text-cream-50">
+                    <span className="grid size-9 place-items-center rounded-full bg-white/10 text-sage-200 backdrop-blur-sm">
+                      {item.icon}
+                    </span>
+                    {item.text}
+                  </animated.li>
+                ))}
               </ul>
             </div>
 
@@ -155,7 +177,7 @@ export function Contact() {
               )}
             </div>
           </div>
-        </div>
+        </animated.div>
       </div>
     </section>
   )
