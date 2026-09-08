@@ -63,7 +63,7 @@ export function Hero() {
           </animated.p>
 
           {/* CTA */}
-          <animated.div style={textSprings[3]} className="mt-10 flex flex-wrap items-center gap-4">
+          <animated.div style={textSprings[3]} className="mt-10 flex flex-wrap items-center gap-4 justify-center">
             <LinkButton
               href="#projets"
               iconRight={<ArrowRightIcon />}
