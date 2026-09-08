@@ -1,32 +1,42 @@
-# React + TypeScript + Vite
+# Sève — Design System
 
-This template provides a minimal setup to get React working in Vite with HMR and some Oxlint rules.
+**« La tech prend racine »**
 
-Currently, two official plugins are available:
+Un design system React/TypeScript construit avec Tailwind CSS v4, Storybook et React Spring — pensé pour des applications web à l'esprit organique et végétal.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## Thème
 
-## React Compiler
+- **Palette** : Cream, Forest, Sage, Mustard, Terracotta, Winter
+- **Typographie** : Baloo 2 (titres), Karla (corps)
+- **Ombres** : douces et organiques, teintées de vert forest
+- **Animations** : React Spring pour les entrées au scroll, keyframes CSS décoratives (float, sway, grow, drift…)
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## Documentation du thème
 
-## Expanding the Oxlint configuration
+Le Storybook documente les fondations visuelles, les composants et les motifs de page du design system :
 
-If you are developing a production application, we recommend enabling type-aware lint rules by installing `oxlint-tsgolint` and editing `.oxlintrc.json`:
+→ **[Storybook du thème Sève](/storybook/)**
 
-```json
-{
-  "$schema": "./node_modules/oxlint/configuration_schema.json",
-  "plugins": ["react", "typescript", "oxc"],
-  "options": {
-    "typeAware": true
-  },
-  "rules": {
-    "react/rules-of-hooks": "error",
-    "react/only-export-components": ["warn", { "allowConstantExport": true }]
-  }
-}
+## Développement
+
+```bash
+# Démarrer le dev
+pnpm dev
+
+# Lancer Storybook
+pnpm storybook
+
+# Builder le Storybook (dans public/storybook/)
+pnpm build-storybook
+
+# Builder l'app + Storybook
+pnpm build
 ```
 
-See the [Oxlint rules documentation](https://oxc.rs/docs/guide/usage/linter/rules) for the full list of rules and categories.
+## Stack
+
+- React 19 + TypeScript
+- Vite
+- Tailwind CSS v4 (`@theme` tokens)
+- Storybook 10
+- React Spring v10
