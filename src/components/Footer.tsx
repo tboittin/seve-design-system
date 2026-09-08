@@ -1,5 +1,5 @@
 import { animated } from '@react-spring/web'
-import { SproutIcon, GithubIcon, ArrowRightIcon } from '../lib/icons'
+import { SproutIcon, GithubIcon, BookIcon, ArrowRightIcon } from '../lib/icons'
 import { useOscillate } from '../hooks'
 
 const FOOTER_LINKS = [
@@ -8,6 +8,11 @@ const FOOTER_LINKS = [
   { href: '#projets', label: 'Projets' },
   { href: '#competences', label: 'Compétences' },
   { href: '#contact', label: 'Contact' },
+]
+
+const EXTERNAL_LINKS = [
+  { href: 'https://github.com/tboittin', label: 'tboittin', icon: GithubIcon, newTab: true },
+  { href: '/storybook/', label: 'Storybook', icon: BookIcon, newTab: false },
 ]
 
 export function Footer() {
@@ -44,18 +49,22 @@ export function Footer() {
             ))}
           </nav>
 
-          {/* Social + copyright */}
+          {/* Liens externes + copyright */}
           <div className="flex flex-col items-center gap-3 sm:items-end">
-            <a
-              href="https://github.com/tboittin"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-1.5 text-sm font-semibold text-forest-500 transition-colors hover:text-forest-800"
-            >
-              <GithubIcon className="size-4" />
-              tboittin
-              <ArrowRightIcon className="size-3 -rotate-45" />
-            </a>
+            <div className="flex flex-wrap items-center justify-center gap-x-4 gap-y-2">
+              {EXTERNAL_LINKS.map(({ href, label, icon: Icon, newTab }) => (
+                <a
+                  key={href}
+                  href={href}
+                  {...(newTab ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
+                  className="inline-flex items-center gap-1.5 text-sm font-semibold text-forest-500 transition-colors hover:text-forest-800"
+                >
+                  <Icon className="size-4" />
+                  {label}
+                  <ArrowRightIcon className="size-3 -rotate-45" />
+                </a>
+              ))}
+            </div>
             <p className="text-xs text-forest-400">
               &copy; {new Date().getFullYear()} Sève — semé, arrosé, poussé{' '}
               <span role="img" aria-label="amour">❤️</span>

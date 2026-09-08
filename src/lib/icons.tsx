@@ -185,6 +185,14 @@ export const ClockIcon = (props: IconProps) => (
   </Base>
 )
 
+/** Livre ouvert — documentation */
+export const BookIcon = (props: IconProps) => (
+  <Base {...props}>
+    <path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1 0-5H20" />
+    <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20" />
+  </Base>
+)
+
 /** GitHub, rempli — réseaux sociaux */
 export const GithubIcon = (props: IconProps) => (
   <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" {...props}>

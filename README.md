@@ -1,42 +1,32 @@
-# Sève — Design System
+# React + TypeScript + Vite
 
-**« La tech prend racine »**
+This template provides a minimal setup to get React working in Vite with HMR and some Oxlint rules.
 
-Un design system React/TypeScript construit avec Tailwind CSS v4, Storybook et React Spring — pensé pour des applications web à l'esprit organique et végétal.
+Currently, two official plugins are available:
 
-## Thème
+- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
+- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
 
-- **Palette** : Cream, Forest, Sage, Mustard, Terracotta, Winter
-- **Typographie** : Baloo 2 (titres), Karla (corps)
-- **Ombres** : douces et organiques, teintées de vert forest
-- **Animations** : React Spring pour les entrées au scroll, keyframes CSS décoratives (float, sway, grow, drift…)
+## React Compiler
 
-## Documentation du thème
+The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
 
-Le Storybook documente les fondations visuelles, les composants et les motifs de page du design system :
+## Expanding the Oxlint configuration
 
-→ **[Storybook du thème Sève](/storybook/)**
+If you are developing a production application, we recommend enabling type-aware lint rules by installing `oxlint-tsgolint` and editing `.oxlintrc.json`:
 
-## Développement
-
-```bash
-# Démarrer le dev
-pnpm dev
-
-# Lancer Storybook
-pnpm storybook
-
-# Builder le Storybook (dans public/storybook/)
-pnpm build-storybook
-
-# Builder l'app + Storybook
-pnpm build
+```json
+{
+  "$schema": "./node_modules/oxlint/configuration_schema.json",
+  "plugins": ["react", "typescript", "oxc"],
+  "options": {
+    "typeAware": true
+  },
+  "rules": {
+    "react/rules-of-hooks": "error",
+    "react/only-export-components": ["warn", { "allowConstantExport": true }]
+  }
+}
 ```
 
-## Stack
-
-- React 19 + TypeScript
-- Vite
-- Tailwind CSS v4 (`@theme` tokens)
-- Storybook 10
-- React Spring v10
+See the [Oxlint rules documentation](https://oxc.rs/docs/guide/usage/linter/rules) for the full list of rules and categories.
